@@ -1,0 +1,32 @@
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMP WITH TIME ZONE,
+    sender VARCHAR(255) NOT NULL,
+    receiver VARCHAR(255),
+    original_contract VARCHAR(255) NOT NULL,
+    num_tokens BIGINT NOT NULL,
+    chain_id BIGINT NOT NULL,
+    transaction_hash VARCHAR(255) UNIQUE NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    message TEXT
+);
+
+
+CREATE TABLE nonces (
+    id SERIAL PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMP WITH TIME ZONE,
+    address VARCHAR(255) NOT NULL,
+    nonce BIGINT NOT NULL
+);
+
+INSERT INTO nonces (address, nonce) 
+VALUES ('0xC5c1613FccdC40822Ee95d08b81bf82e09E2726f', 121);
+
+UPDATE nonces 
+SET nonce = 65, updated_at = NOW()
+WHERE address = '0x3511234CE2DB8Cf7876B8E3295CA534696DF5B07';
+
